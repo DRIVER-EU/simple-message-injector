@@ -58,7 +58,7 @@
       </form>
     </div>
     <div class="row right-align" style="margin: 20px">
-      <button class="btn waves-effect waves-light" type="submit" @click="submitMessage" name="action">Submit
+      <button class="btn waves-effect waves-light" v-bind:disabled="!canSubmit" type="submit" @click="submitMessage" name="action">Submit
         <i class="material-icons right">send</i>
       </button>
     </div>
@@ -67,13 +67,16 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { ILargeDataUpdate } from '../models/large-data-update';
+import axios from 'axios';
 
 @Component
 export default class LargeUpdateMessage extends Vue {
-  private url: string = '';
+  private fileUrl: string = '';
   private title: string = '';
   private description: string = '';
   private dataType: string = 'image_geotiff';
+  private canSubmit = false;
 
   public mounted() {
     const elem = document.querySelector('select');
@@ -81,8 +84,27 @@ export default class LargeUpdateMessage extends Vue {
     M.updateTextFields();
   }
 
-  public submitMessage(event: any) {
-    alert(`event: ${event}, url: ${this.url}, title: ${this.title}, type: ${this.dataType}, desc: ${this.description}.`);
+  public get url() { return this.fileUrl; }
+  public set url(value: string) {
+    this.fileUrl = value;
+    this.canSubmit = this.fileUrl ? true : false;
+  }
+
+  public submitMessage() {
+    const body = {
+      url: this.url,
+      title: this.title,
+      description: this.description,
+      dataType: this.dataType
+    } as ILargeDataUpdate;
+    axios
+      .post('/incoming', body)
+      .then(response => {
+        M.toast({ html: `Successfully submitted your message!`, classes: 'rounded' });
+      })
+      .catch(e => {
+        M.toast({ html: e, classes: 'rounded red' });
+      });
   }
 }
 </script>
