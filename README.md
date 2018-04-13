@@ -10,7 +10,7 @@ Assuming you have installed a recent version (v8+) of [Node](http://nodejs.org),
 
 ## Run
 
-After installation, you can run `simple-message-injector --help` to see an overview of available commands. Most likely, running `simple-message-injector` is sufficient, but you can also specify the port, Kafka broker and schema registry, if required.
+After installation, you can run `simple-message-injector --help` to see an overview of available commands. Most likely, running `simple-message-injector` is sufficient, after which you can find the web page at [http://localhost:8456](http://localhost:8456), but you can also specify the port, Kafka broker and schema registry, if required.
 
 ## Build
 
