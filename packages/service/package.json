@@ -30,7 +30,7 @@
     "command-line-usage": "^5.0.4",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "node-test-bed-adapter": "^0.3.14"
+    "node-test-bed-adapter": "^0.4.0"
   },
   "devDependencies": {
     "@types/command-line-args": "^4.0.2",
